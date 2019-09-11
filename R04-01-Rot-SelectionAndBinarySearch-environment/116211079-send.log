@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-09-07T12:04:29.215-0300</date>
+  <logger>YANKA YOHANA PEREIRA DAS NEVES</logger>
+  <level>FINE</level>
+  <message>File 116211079-YANKA YOHANA PEREIRA DAS NEVES.zip was received. It was sent by YANKA YOHANA PEREIRA DAS NEVES from IP 192.168.0.15 at 07-09-2019 12*04*29</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2019-09-07T13:26:54.541-0300</date>
+  <logger>YANKA YOHANA PEREIRA DAS NEVES</logger>
+  <level>FINE</level>
+  <message>File 116211079-YANKA YOHANA PEREIRA DAS NEVES.zip was received. It was sent by YANKA YOHANA PEREIRA DAS NEVES from IP 192.168.0.15 at 07-09-2019 13*26*54</message>
+</record>
