@@ -10,88 +10,109 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public boolean isEmpty() {
-		return size() == 0;
+		return this.head.isNIL();
 	}
 
 	@Override
 	public int size() {
-		int size = 0;
-		SingleLinkedListNode<T> aux = getHead();
-		while (aux.getData() != null) {
-			size += 1;
-			aux = aux.getNext();
+		SingleLinkedListNode<T> aux = this.head;
+		int contador = 0;
+		
+		while (!aux.isNIL()) {
+			contador++;
+			aux = aux.next;
 		}
-		return size;
+		
+		return contador;
 	}
 
 	@Override
 	public T search(T element) {
-		T result = null;
 		SingleLinkedListNode<T> aux = this.head;
-		while (aux.getNext().getData() != null && aux.getData() != element) {
-			aux = aux.getNext();
+		
+		while (!aux.isNIL()) {
+			if (aux.getData().equals(element)) {
+				return aux.getData();
+			}
+			aux = aux.next;
 		}
-		if (aux.getData().equals(element)) {
-			result = aux.getData();
-		}
-		return result;
+		return null;
 	}
 
 	@Override
 	public void insert(T element) {
-		SingleLinkedListNode<T> nil = new SingleLinkedListNode();
-		if (element != null) {
-			if (isEmpty()) {
-				setHead(new SingleLinkedListNode<T>(element, nil));
-			} else {
-				lastElement().setNext(new SingleLinkedListNode<T>(element, nil));
-			}
-		}
+
+		SingleLinkedListNode<T> aux = this.lastElement();
+		aux.setData(element);
+		aux.next = new SingleLinkedListNode<>();
 	}
 
 	private SingleLinkedListNode<T> lastElement() {
-		SingleLinkedListNode<T> aux = getHead();
-		while (aux.getNext().getData() != null) {
-			aux = aux.getNext();
+		SingleLinkedListNode<T> aux = this.head;
+		
+		while (!aux.isNIL()) {
+			aux = aux.next;
 		}
 		return aux;
 	}
 
 	@Override
 	public void remove(T element) {
-		if (element != null && search(element) != null) {
-			if (element.equals(this.head.getData())) {
-				this.head = this.head.getNext();
-			} else {
-				SingleLinkedListNode<T> aux = this.head;
-				while (aux.getNext().getData() != null && aux.getNext().getData() != element) {
-					aux = aux.getNext();
-				}
-				aux.setNext(aux.getNext().getNext());
+		this.insert(element);
+		SingleLinkedListNode<T> aux = this.head;
+		
+		while (!aux.isNIL()) {
+			if (aux.next.getData().equals(element)) {
+				aux.next = aux.next.next;
+				break;
 			}
-
+			
+			aux = aux.next;
 		}
+	}
+	
+	public void doIt(T element) {
+		SingleLinkedListNode<T> auxNext = new SingleLinkedListNode<>();
+		SingleLinkedListNode<T> auxPrevious = new SingleLinkedListNode<>();
+		SingleLinkedListNode<T> auxCurrent = this.head;
+		
+		while (auxCurrent != null) {
+			auxNext = auxCurrent.next;
+			auxCurrent.next = auxPrevious;
+			auxPrevious = auxCurrent;
+			auxCurrent = auxNext;			
+			
+		}
+		
+		auxCurrent = auxPrevious;
+	}
+	
+	
+	public void deleteAlternador() {
+		SingleLinkedListNode<T> aux = this.head;
+		
+		while(!aux.isNIL()) {
+			aux.next = aux.next.next;
+			aux = aux.next;
+		}
+		
 	}
 
 	@Override
 	public T[] toArray() {
-		T[] array = (T[]) new Object[size()];
-		SingleLinkedListNode<T> aux = getHead();
-		int index = 0;
-		while (aux.getData() != null) {
-			array[index] = aux.getData();
-			aux = aux.getNext();
-			index++;
+		
+		T[] array = (T[]) new Object[this.size()];
+		
+		SingleLinkedListNode<T> aux = this.head;
+		
+		int i = 0;
+		while (!aux.isNIL()) {
+			array[i] = aux.getData();
+			i++;
+			aux = aux.next;
 		}
+		
 		return array;
-	}
-
-	public SingleLinkedListNode<T> getHead() {
-		return head;
-	}
-
-	public void setHead(SingleLinkedListNode<T> head) {
-		this.head = head;
 	}
 
 }

@@ -13,11 +13,11 @@ public class StackImpl<T> implements Stack<T> {
 
 	@Override
 	public T top() {
-		if (isEmpty()) {
+		if(isEmpty()) {
 			return null;
-		}else {
-			return this.array[top];
 		}
+		return array[top];
+		
 	}
 
 	@Override
@@ -32,10 +32,10 @@ public class StackImpl<T> implements Stack<T> {
 
 	@Override
 	public void push(T element) throws StackOverflowException {
-		if (isFull()) {
-			throw new  StackOverflowException();
+		if(isFull()) {
+			throw new StackOverflowException();
 		}
-		else if (element != null) {
+		else if(element != null) {
 			top++;
 			this.array[top] = element;
 		}
@@ -43,12 +43,16 @@ public class StackImpl<T> implements Stack<T> {
 
 	@Override
 	public T pop() throws StackUnderflowException {
-		if (isEmpty()) {
+		T retirado = null;
+		if(isEmpty()) {
 			throw new StackUnderflowException();
 		}
 		else {
-			return this.array[this.top--];
+			retirado = array[top];
+			top--;
 		}
+		
+		return retirado;
 	}
 
 }

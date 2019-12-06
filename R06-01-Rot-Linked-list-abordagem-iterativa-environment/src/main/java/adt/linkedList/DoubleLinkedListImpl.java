@@ -5,52 +5,41 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 
 	protected DoubleLinkedListNode<T> last;
 
-	@Override
+	@Override // null
 	public void insert(T element) {
-		if (element != null) {
-			DoubleLinkedListNode<T> aux = new DoubleLinkedListNode<T>(element, new DoubleLinkedListNode<>(),
-					new DoubleLinkedListNode<>());
-			if (!isEmpty()) {
-				aux.setPrevious(getLast());
-				getLast().setNext(aux);
-				setLast(aux);
-			} else {
-				setHead(aux);
-				setLast(aux);
-			}
+		if (this.isEmpty()) {
+			this.head = new DoubleLinkedListNode<>();
 		}
+		DoubleLinkedListNode<T> aux = (DoubleLinkedListNode<T>) this.last;
+		
+		
+		aux.setData(element);
+		aux.next = new DoubleLinkedListNode<>();
+		((DoubleLinkedListNode<T>) aux.next).previous = aux; 
+		this.last = aux.previous;
+		
 	}
 
-	@Override
+	@Override // null
 	public void insertFirst(T element) {
-		DoubleLinkedListNode<T> aux = new DoubleLinkedListNode<>(element, new DoubleLinkedListNode<>(),
-				new DoubleLinkedListNode<>());
-		if (element != null) {
-			if (isEmpty()) {
-				this.head = aux;
-				this.last = aux;
-			} else {
-				DoubleLinkedListNode<T> head = (DoubleLinkedListNode<T>) getHead();
-				aux.setNext(head);
-				head.setPrevious(aux);
-				setHead(aux);
-			}
-		}
+		DoubleLinkedListNode<T> aux = new DoubleLinkedListNode<>();
+		aux.setData(element);
+		aux.next = this.head;
+		((DoubleLinkedListNode<T>) this.head).previous = aux;
+		this.head = aux;
+		
 	}
 
 	@Override
-	public void removeFirst() {
-		if (!isEmpty()) {
-			this.head = this.head.getNext();
-		}
+	public void removeFirst() { // isEmpty
+		this.head = this.head.next;
+		((DoubleLinkedListNode<T>) this.head).previous = null;
 	}
 
 	@Override
-	public void removeLast() {
-		if (!isEmpty()) {
-			getLast().getPrevious().setNext(new DoubleLinkedListNode<>());
-			setLast(last.getPrevious());
-		}
+	public void removeLast() { // isEmpty
+		this.last = this.last.previous;
+		this.last.next = null;
 	}
 
 	public DoubleLinkedListNode<T> getLast() {
